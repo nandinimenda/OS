@@ -1,0 +1,49 @@
+#include <stdio.h>
+#include <string.h>
+
+struct FileTable {
+    char name[20];
+    int startBlock, numBlocks;
+} ft[30];
+
+int main() {
+    int n, i, j;
+    char searchName[20];
+
+    printf("Enter number of files: ");
+    scanf("%d", &n);
+
+    for (i = 0; i < n; i++) {
+        printf("\nEnter file name %d: ", i + 1);
+        scanf("%s", ft[i].name);
+
+        printf("Enter starting block of file %d: ", i + 1);
+        scanf("%d", &ft[i].startBlock);
+
+        printf("Enter number of blocks in file %d: ", i + 1);
+        scanf("%d", &ft[i].numBlocks);
+    }
+
+    printf("\nEnter the file name to be searched: ");
+    scanf("%s", searchName);
+
+    for (i = 0; i < n; i++) {
+        if (strcmp(searchName, ft[i].name) == 0) {
+            break;
+        }
+    }
+
+    if (i == n) {
+        printf("\nFile Not Found\n");
+    } else {
+        printf("\nFILE NAME\tSTART BLOCK\tNO OF BLOCKS\tBLOCKS OCCUPIED\n");
+        printf("%s\t\t%d\t\t%d\t\t", ft[i].name, ft[i].startBlock, ft[i].numBlocks);
+
+        for (j = 0; j < ft[i].numBlocks; j++) {
+            printf("%d ", ft[i].startBlock + j);
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
